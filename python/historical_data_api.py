@@ -4,7 +4,7 @@ API available at:
 https://rapidapi.com/chrizogAPI/api/historical-dex-data-for-defichain/
 """
 
-from typing import List
+from typing import List, Dict
 import requests
 
 
@@ -32,7 +32,7 @@ def get_poolpairs(rapid_api_key: str) -> List:
         return []
 
 
-def get_price(poolpair: str, date_str: str, rapid_api_key: str) -> float:
+def get_price(poolpair: str, date_str: str, rapid_api_key: str) -> Dict:
     """Query the price (i.e. the pool ratio) of a poolpair of a given date.
 
     Parameters:
@@ -52,10 +52,10 @@ def get_price(poolpair: str, date_str: str, rapid_api_key: str) -> float:
     try:
         resp = requests.get(url=url, headers=headers)
         if resp.status_code == 200:
-            return float(resp.json()["price"])
+            return resp.json()
         else:
             print(resp.json())
-            return 0.0
+            return {"high": 0.0, "low": 0.0}
     except requests.exceptions.HTTPError as err:
         print(err)
-        return 0.0
+        return {"high": 0.0, "low": 0.0}

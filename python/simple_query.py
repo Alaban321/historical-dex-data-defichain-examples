@@ -12,5 +12,9 @@ if __name__ == "__main__":
     query_date = "2022-05-01"
     poolpair = available_poolpairs[0]
 
-    price = get_price(poolpair, query_date, rapid_api_key)
+    price_high_low = get_price(poolpair, query_date, rapid_api_key)
+
+    # Average between high and low
+    price = (price_high_low["high"] +  price_high_low["low"]) / 2.0
+
     print(f"Price of {poolpair} on {query_date}: {price}")
