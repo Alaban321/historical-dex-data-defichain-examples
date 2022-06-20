@@ -2,7 +2,7 @@ import datetime
 from typing import Generator
 from historical_data_api import get_poolpairs, get_price
 
-rapid_api_key = "<Place your API key here>"
+rapid_api_key = "<Place your RapidAPI key here>"
 
 
 def date_to_year_month_day(date: datetime.date) -> str:
@@ -43,4 +43,4 @@ if __name__ == "__main__":
 
         # Average between high and low
         price = (price_high_low["high"] +  price_high_low["low"]) / 2.0
-        print(f"Price of {poolpair} on {query_date}: {price}")
+        print(f"Price of {poolpair} on {query_date}: {price} {price_high_low['unit']}")

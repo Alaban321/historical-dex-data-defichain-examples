@@ -19,7 +19,7 @@ def get_poolpairs(rapid_api_key: str) -> List:
         "X-RapidAPI-Key": rapid_api_key,
     }
 
-    url = "https://historical-dex-data-for-defichain.p.rapidapi.com/v1/dexprices/pools"
+    url = "https://historical-dex-data-for-defichain.p.rapidapi.com/v1/dex/day/poolpairs"
     try:
         resp = requests.get(url=url, headers=headers)
         if resp.status_code == 200:
@@ -48,14 +48,14 @@ def get_price(poolpair: str, date_str: str, rapid_api_key: str) -> Dict:
         "X-RapidAPI-Key": rapid_api_key,
     }
 
-    url = f"https://historical-dex-data-for-defichain.p.rapidapi.com/v1/dexprices/price/{poolpair}/{date_str}"
+    url = f"https://historical-dex-data-for-defichain.p.rapidapi.com/v1/dex/day/price/{poolpair}/{date_str}"
     try:
         resp = requests.get(url=url, headers=headers)
         if resp.status_code == 200:
             return resp.json()
         else:
             print(resp.json())
-            return {"high": 0.0, "low": 0.0}
+            return {"high": 0.0, "low": 0.0, "unit": ""}
     except requests.exceptions.HTTPError as err:
         print(err)
-        return {"high": 0.0, "low": 0.0}
+        return {"high": 0.0, "low": 0.0, "unit": ""}
